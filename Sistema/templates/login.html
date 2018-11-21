@@ -1,0 +1,17 @@
+{% extends 'maqueta.html' %}
+{% load staticfiles %}
+
+{% block principal %}
+<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+<form class="formu" method="POST">
+    <h1>Login Usuario</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Ingresar" class="btn-enviar">
+    <a href="/olvido/">Olvidaste tu Contraseña?</a>
+    {% if mensaje != "" %}
+      <script languaje='javascript'>alert('{{mensaje}}')</script>
+    {% endif %}
+
+</form>
+{% endblock %}

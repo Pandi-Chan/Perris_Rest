@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    {% load pwa %}
+    {% load static %}
+    <head>
+        {% progressive_web_app_meta %}
+        <title>{{titulo}}</title>
+        <link rel="stylesheet" href="{% static 'css/maqueta.css' %}"> <!--Ruta para el Archivo Principal de Estilo-->
+        <script src="{% static 'js/prefix.js' %}" type="test/javascript"></script><!--Script para asegurar que en todos los navegadores y dispositivos el sitio se vea igual-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <header> <!--Cabecera de la Página-->
+			<div class="logo">
+				<img src="{% static 'img/logo.png' %}" alt="Logo">
+				<a href="/index/">Mis Perris</a>
+			</div>
+
+          <!-- El Primer If, Te verifica si hay un usuario ya logeado o no, sin importar su tipo de usuario  -->
+            {% if request.user.is_authenticated %}  <!-- Si hay un Usuario Logueado, Mostrará una de las 2 opciones, dependiendo el tipo de Usuario-->
+                {% if user.is_staff %} <!-- Si el usuario es Staff (Admin), Muestra ese Header (REVISAR VIEWS) -->
+                    <nav> <!--Menú Superior-->
+                        <a href="/index/">Inicio</a>
+                        <a href="/registroAdmin/">Registrar Usuario</a>
+                        <a href="/listaPersona/">Gestionar Usuario</a>
+                        <a href="/registroPerro/">Registrar Perro</a>
+                        <a href="/listaPerro/">Gestionar Perro</a>
+                        <a href="/salir/">Cerrar Sesión</a>
+                    </nav>
+                {% else %} <!-- Si es un Usuario normal, muestra esto -->
+                    <nav> <!--Menú Superior-->
+                        <a href="/index/">Inicio</a>
+                        <a href="/listaPerro/">Lista Perros</a>
+                        <a href="/adoptar/">Adoptar</a>
+                        <a href="/salir/">Cerrar Sesión</a>
+                    </nav>
+                {% endif %}
+            {% else %} <!-- Si no está Logueado le Muestra el Header por Defecto -->
+                <nav> <!--Menú Superior-->
+                    <a href="/index/">Inicio</a>
+                    <a href="/index/#info">Quienes Somos</a>
+                    <a href="/registro/">Registrarse</a>
+                    <a href="/login/">Ingresar</a>
+                </nav>
+            {% endif %}
+
+        </header>
+        <div class="contenedor">
+            {% block principal %}
+            {% endblock %}
+        </div>
+
+      <footer>
+        Desarrollo Web y Mobile
+      </footer>
+    </body>
+     <script>
+        $(document).ready(function(){
+            $.ajax({url: "http://localhost:8000/Gestion/persona",  success: function(result){
+                $("#listaPersonas").append("personas");
+                $.each(result,function(i,items){
+                    $("#listaPersonas").append('<br>'); 
+                    $("#listaPersonas").append(result[i].nombrePersona+" "+result[i].usuario);
+                    $("#listaPersonas").append('<br>'); 
+               });
+            }});
+        })
+    </script>
+</html>

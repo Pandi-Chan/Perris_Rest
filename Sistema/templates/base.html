@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>ejemplo</h1>
+        {% block principal%}
+        {% endblock%}        
+    </body>
+    <script>
+        $(document).ready(function(){
+            $.ajax({url: "http://localhost:8000/Gestion",  success: function(result){
+                $("#").append("personas");
+                $.each(result,function(i,items){
+                    $("#listaPersonas").append('<br>'); 
+                    $("#listaPersonas").append(result[i].nombrePersona+" "+result[i].apellidoPersona);
+                    $("#listaPersonas").append('<br>'); 
+               });
+            }});
+        })
+
+        $("#formulario").submit(function(){
+            alert("aca");
+            $.ajax({
+                url:"http://localhost:8000/Gestion/Registrar/",
+                type:'POST',
+                data: {'nombrePersona': $("#nombrePersona").val(),'apellidoPersona':$("#apellidoPersona").val(),'fechaNacimiento':$("#fechaNacimiento").val(),'numeroFono':$("#numeroFono").val(),'regionPersona':$("#regionPersona").val(),'ciudadPersona':$("#ciudadPersona").val(),'viviendaPersona':$("#viviendaPersona").val(),'tipoPersona':$("#tipoPersona").val()},
+                success: function (response) {
+                    alert("exito al ingresar");
+                }
+            })
+        })
+       
+    </script>
+</html>
