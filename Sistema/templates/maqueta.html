@@ -31,7 +31,7 @@
                     <nav> <!--Menú Superior-->
                         <a href="/index/">Inicio</a>
                         <a href="/listaPerro/">Lista Perros</a>
-                        <a href="/adoptar/">Adoptar</a>
+                        <a href="/listaPerro/">Adoptar</a>
                         <a href="/salir/">Cerrar Sesión</a>
                     </nav>
                 {% endif %}
@@ -57,11 +57,35 @@
      <script>
         $(document).ready(function(){
             $.ajax({url: "http://localhost:8000/Gestion/persona",  success: function(result){
-                $("#listaPersonas").append("personas");
                 $.each(result,function(i,items){
-                    $("#listaPersonas").append('<br>'); 
-                    $("#listaPersonas").append(result[i].nombrePersona+" "+result[i].usuario);
-                    $("#listaPersonas").append('<br>'); 
+                    $("#listaPersonas").append('<tr><td>'+ result[i].usuario.username +'</td>'+
+                                                '<td>'+ result[i].nombrePersona +'</td>'+
+                                                '<td>'+ result[i].apellidoPersona +'</td>'+
+                                                '<td>'+ result[i].fechaNacimiento +'</td>'+
+                                                '<td>'+ result[i].usuario.email +'</td>'+
+                                                '<td>'+ result[i].numeroFono +'</td>'+
+                                                '<td>'+ result[i].regionPersona +'</td>'+
+                                                '<td>'+ result[i].ciudadPersona +'</td>'+
+                                                '<td>'+ result[i].viviendaPersona +'</td>'+
+                                                '<td>'+ result[i].tipoPersona +'</td></tr>');
+
+
+               });
+            }});
+        })
+
+         $(document).ready(function(){
+            $.ajax({url: "http://localhost:8000/Gestion/perro",  success: function(result){
+                $.each(result,function(i,items){
+                    $("#listaPerros").append('<tr><td>'+ result[i].nombreMascota +'</td>'+
+                                                '<td>'+ result[i].razaMascota +'</td>'+
+                                                '<td>'+ result[i].descripcion +'</td>'+
+                                                '<td><img src="'+ result[i].imagen.substring(7) +'"width="25%" height="50%"></td>'+
+                                                '<td>'+ result[i].estadoMascota +'</td>'+
+                                                '<td><a href="http://localhost:8000/borrarPerro/'+ result[i].codigoMascota +'">Eliminar</a></td></tr>');
+
+                        // <td><img src='{{ p.imagen|cut:"Sistema" }}' width="100px" height="50px"></td>                    
+                    // FALTA AGREGAR EL CAMPO USUARIO A LA LISTA (REVISAR SERIALIZER)
                });
             }});
         })

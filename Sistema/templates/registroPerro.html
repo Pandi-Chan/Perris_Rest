@@ -1,0 +1,35 @@
+{% extends 'maqueta.html' %}
+{% load staticfiles %}
+
+{% block principal %}
+<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+{% if actual.is_staff %}
+  <form  role="form"  enctype="multipart/form-data"  method="POST" class="formu">
+    <h1>Registro Perro</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Enviar" class="btn-enviar">
+      {% if mensaje != "" %}
+        <script languaje='javascript'>alert('{{mensaje}}')</script>
+      {% endif %}
+  </form>
+{% else %}
+  <form class="formu">
+    <h1>Sin Permisos Suficientes</h1>
+  </form>
+{% endif %}
+
+<!-- <table>
+{% if perros %}
+  <td>
+    <tr>Nombre Descripcion</tr><br>
+  </td>
+  {% for p in perros %}
+    <tr>{{ p.nombreMascota }} {{ p.descripcion }}</tr>
+    <br>
+  {% endfor %}
+{% else %}
+  SIN PERROS
+{% endif %}
+</table> -->
+{% endblock %}
