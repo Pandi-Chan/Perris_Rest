@@ -16,4 +16,7 @@ urlpatterns=[
     url(r'^listaPersona/$',views.listaPersona,name="listaPersona"),
     url(r'^borrarPerro/(?P<postid>\d+)/', views.borrarPerro, name='borrarPerro'),
     url(r'^salir/$',views.salir,name="logout"),
+
+    # PATH SERVICE WORKER
+    path(r'base_layout/',views.base_layout,name='base_layout'),
 ]

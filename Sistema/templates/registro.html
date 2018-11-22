@@ -1,5 +1,5 @@
 {% extends 'maqueta.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block principal %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
@@ -7,12 +7,65 @@
   <form class="formu" method="POST">
       <h1>Registro Usuario</h1>
       {% csrf_token %}
-      {{ form.as_p }}
+      <table>
+        <tr>
+            <td>Rut:</td><td><input type="text" id="rut"></td>
+        </tr>
+        <tr>
+            <td>Contraseña:</td><td><input type="password" id="contraseña"></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td><td><input type="text" id="nombre"></td>
+        </tr>
+        <tr>
+            <td>Apellido:</td><td><input type="text" id="apellido"></td>
+        </tr>
+        <tr>
+            <td>E-Mail:</td><td><input type="email" id="email"></td>
+        </tr>
+        <tr>
+            <td>Fecha de Nacimiento:</td><td><input type="date" id="fechaNacimiento"></td>
+        </tr>
+        <tr>
+            <td>Nro Telefono:</td><td><input type="text" id="numeroFono"></td>
+        </tr>
+        <tr>
+            <td>Region</td><td><select id="region"><option>Selecione Región</option></select></td>
+        </tr>
+        <tr>
+            <td>Tipo de Casa</td><td><select id="tipo"><option>Selecione Tipo de Casa</option></select></td>
+        </tr>
+      </table>   
       <input type="submit" value="Registrar" class="btn-enviar">
 
+<!-- SCRIPT PARA LLENAR LOS COMBO BOX CON LAS REGIONES Y TIPO DE CASA -->
+      <script>
+        // REGIONES
+        var regiones=["Arica y Parinacota","Tarapacá","Antofagasta","Atacama","Coquimbo","Valparaiso","Metropolitana de Santiago",
+          "Libertador General Bernardo O'Higgins","Maule","Biobío","La Araucanía","Los Ríos","Los Lagos",
+          "Aisén del General Carlos Ibáñez del Campo","Magallanes y de la Antártica Chilena","Ñuble"]
+        $.each(regiones, function(key, value) {   
+          $('#region')
+             .append($("<option></option>")
+             .attr("value",key)
+             .text(value)); 
+        });
+
+        // TIPOS CASA
+        var tipos =["Casa con Patio Grande","Casa con Patio Pequeño","Casa sin Patio","Departamento"]
+
+        $.each(tipos, function(key, value) {   
+          $('#tipo')
+             .append($("<option></option>")
+             .attr("value",key)
+             .text(value)); 
+        });
+      </script>
+<!-- TERMINAR DESDE AQUI, FALTA QUE GUARDE AL USUARIO, ADEMAS DE HACER EL OTRO FORMULARIO -->
       {% if mensaje != "" %}
         <script languaje='javascript'>alert('{{mensaje}}')</script>
       {% endif %}
+
   </form>
 {% else %}
   {% if actual.is_staff %}

@@ -19,23 +19,19 @@ def index(request):
     plantilla=loader.get_template("index.html")
     return HttpResponse(plantilla.render({'titulo':"Mis Perris"},request))
 
+#------------------------------------------ WORKER ------------------------------------------
+def base_layout(request):
+    # QUIERO QUE MAQUETA HTML CAMBIE DEPENDIENDO LA PAG QUE ESTÁ ACTUALMENTE
+  template="maqueta.html"
+  return render(request,template)
+
 # ------------------------------------------ FORMULARIOS ------------------------------------------
 # Registro de Personas (DESDE FUERA DEL SISTEMA, USUARIOS NUEVOS)
 def registroPersona(request):
     mensaje=""
     registro=1 #Dependiendo este número, es el Formulario que Mostrará
-    personas=Persona.objects.all()
-    form=RegistrarPersonaForm(request.POST or None)
-    if form.is_valid():
-        data=form.cleaned_data
-        new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
-        new.is_staff=False
-        new.save()
-        regDB=Persona(usuario=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"))
-        regDB.save()
-        mensaje='Usuario '+regDB.nombrePersona+' Registrado'
-    form=RegistrarPersonaForm()
-    return render(request,"registro.html",{'form':form,'personas':personas,'registro':registro,'titulo':"Registro",'mensaje':mensaje})
+
+    return render(request,"registro.html",{'registro':registro,'titulo':"Registro",'mensaje':mensaje})
 
 # Registro de Personas para Admin (DESDE DENTRO DEL SISTEMA)
 @login_required(login_url='login')

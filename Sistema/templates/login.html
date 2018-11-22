@@ -1,7 +1,9 @@
 {% extends 'maqueta.html' %}
 {% load staticfiles %}
+{% load pwa %}
 
 {% block principal %}
+{% progressive_web_app_meta %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 <form class="formu" method="POST">
     <h1>Login Usuario</h1>

@@ -53,6 +53,9 @@
       <footer>
         Desarrollo Web y Mobile
       </footer>
+<!--  NO SE PARA QUE SIRVEN ---------------- :C
+    <script type="text/javascript" src="{% static 'js/idb.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/idbop.js' %}"></script> -->
     </body>
      <script>
         $(document).ready(function(){
@@ -69,7 +72,7 @@
                                                 '<td>'+ result[i].viviendaPersona +'</td>'+
                                                 '<td>'+ result[i].tipoPersona +'</td></tr>');
 
-
+                                        // FALTA AGREGAR EL CAMPO USUARIO A LA LISTA (REVISAR SERIALIZER)
                });
             }});
         })
@@ -83,9 +86,6 @@
                                                 '<td><img src="'+ result[i].imagen.substring(7) +'"width="25%" height="50%"></td>'+
                                                 '<td>'+ result[i].estadoMascota +'</td>'+
                                                 '<td><a href="http://localhost:8000/borrarPerro/'+ result[i].codigoMascota +'">Eliminar</a></td></tr>');
-
-                        // <td><img src='{{ p.imagen|cut:"Sistema" }}' width="100px" height="50px"></td>                    
-                    // FALTA AGREGAR EL CAMPO USUARIO A LA LISTA (REVISAR SERIALIZER)
                });
             }});
         })

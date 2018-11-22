@@ -1,8 +1,8 @@
 {% extends 'maqueta.html' %}
 {% load staticfiles %}
 {% block principal %}
-<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
-    <div class="formu">
+<link rel="stylesheet" href="{% static 'css/tabla.css' %}">
+    <div class="tabla">
         <h1>Lista de Perros</h1>
         <!-- Si el Usuario Logueado es Admin, entonces muestra estos campos en la Tabla  -->
         {% if actual.is_staff %}

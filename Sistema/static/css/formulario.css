@@ -1,4 +1,6 @@
-.formu{
+.formu {
+	padding: 5px;
+	margin: 5px;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -8,12 +10,21 @@
 	align-self: center;
 }
 
-.formu p{
+table{
+	background: #fff;
+	width: 35%;
+	padding: 5px;
+	margin: 5px;
 	align-self: center;
+
 }
 
-.formu a{
-	align-self: center;
+table td{
+	text-align: center;
+}
+
+td input{
+	text-align: center;
 }
 
 .btn-enviar {
@@ -37,22 +48,6 @@
 	align-self: center;
 }
 
-table{
-	width: 99%;
-	border: 1px solid black;
-	padding: 5px;
-	margin: 5px;
-}
-
-#top{
-			font-weight: bold;
-}
-
-table td{
-		border: 1px solid black;
-		text-align: center;
-}
-
 
 
 
@@ -69,14 +64,10 @@ table td{
 	text-align: center;
 }
 
-.formu p{
+table{
+	
 	width: 100%;
-	align-self: center;
-}
 
-.formu a{
-	width: 100%;
-	text-align: center;
 }
 
 .btn-enviar{
