@@ -21,7 +21,7 @@ urlpatterns = [
     # Path de la API
     path('Gestion/',include('api.urls')),
     # Path de Urls del Sistema
-    path('',include("Sistema.urls")),
+    path(r'',include("Sistema.urls")),
     # Path de WORKER
     path('',include('pwa.urls')),
 ]
