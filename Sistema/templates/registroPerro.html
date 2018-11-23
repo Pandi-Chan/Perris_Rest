@@ -8,6 +8,24 @@
     <h1>Registro Perro</h1>
       {% csrf_token %}
       {{ form.as_p }}
+      <table>
+        <tr>
+            <td>Foto:</td><td><input type="file" id="foto"></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td><td><input type="text" id="nombre"></td>
+        </tr>
+        <tr>
+            <td>Raza</td><td><select id="raza"><option>Selecione Raza</option></select></td>
+        </tr>
+        <tr>
+            <td>Descripcion:</td><td><textarea rows="2" cols="25" name="descripcion">Descripción del Perro...</textarea></td>
+        </tr>
+         <tr>
+            <td>Estado:</td><td><select id="tuser"><option>Selecione Estado del Perro</option>
+                                                            <option>Rescatado</option><option>Disponible</option><option>Adoptado</option></select></td>
+        </tr>
+      </table>
       <input type="submit" value="Enviar" class="btn-enviar">
       {% if mensaje != "" %}
         <script languaje='javascript'>alert('{{mensaje}}')</script>
@@ -32,4 +50,16 @@
   SIN PERROS
 {% endif %}
 </table> -->
+
+<!-- SCRIPT PARA LLENADO DE RAZAS -->
+<script>
+        var razas=["Akita Inu","Beagle","Border Collie","Boxer","Bulldog","Dálmata","Golden Retriever","Gran Danés","Labrador","Pastor Alemán","Pit Bull","Pug","Quiltro","Rottweiler","Sabueso","San Bernardo","Terrier"]
+
+        $.each(razas, function(key, value) {   
+          $('#raza')
+             .append($("<option></option>")
+             .attr("value",key)
+             .text(value)); 
+        });
+</script>
 {% endblock %}
