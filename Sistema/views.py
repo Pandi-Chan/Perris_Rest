@@ -97,7 +97,7 @@ def ingreso(request):
         user=authenticate(username=data.get("username"),password=data.get("password"))
         if user is not None:
             login(request,user)
-            return redirect('/')
+            return redirect('/index')
         else:
             mensaje='Datos Invalidos'
     return render(request,"login.html",{'form':form,'titulo':"Login",'mensaje':mensaje})

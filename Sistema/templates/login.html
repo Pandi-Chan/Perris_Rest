@@ -1,14 +1,15 @@
 {% extends 'maqueta.html' %}
-{% load staticfiles %}
-{% load pwa %}
+{% load static %}
 
 {% block principal %}
-{% progressive_web_app_meta %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 <form class="formu" method="POST">
     <h1>Login Usuario</h1>
     {% csrf_token %}
     {{ form.as_p }}
+    <br>
+	<p><strong>-- O --</strong></p>
+	<a href="{% url 'social:begin' 'github' %}">Ingreso con GitHub</a><br>
     <input type="submit" value="Ingresar" class="btn-enviar">
     <a href="/olvido/">Olvidaste tu Contraseña?</a>
     {% if mensaje != "" %}
