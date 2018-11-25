@@ -11,7 +11,7 @@ from django.contrib.auth.hashers import make_password
 # Importacion de Modelos
 from .models import Persona, Mascota
 # Importacion de Formularios
-from .forms import RegistrarPersonaForm, RegistrarAdminForm, LoginForm, RecuperacionForm, RegistrarMascotaForm, RestablecerForm
+from .forms import RegistrarAdminForm, LoginForm, RecuperacionForm, RestablecerForm
 
 # Create your views here.
 #------------------------------------------ INDEX ------------------------------------------
@@ -28,10 +28,8 @@ def base_layout(request):
 # ------------------------------------------ FORMULARIOS ------------------------------------------
 # Registro de Personas (DESDE FUERA DEL SISTEMA, USUARIOS NUEVOS)
 def registroPersona(request):
-    mensaje=""
     registro=1 #Dependiendo este número, es el Formulario que Mostrará
-
-    return render(request,"registro.html",{'registro':registro,'titulo':"Registro",'mensaje':mensaje})
+    return render(request,"registro.html",{'registro':registro,'titulo':"Registro",})
 
 # Registro de Personas para Admin (DESDE DENTRO DEL SISTEMA)
 @login_required(login_url='login')
@@ -63,16 +61,7 @@ def registroAdmin(request):
 @login_required(login_url='login')
 def registroPerro(request):
     actual=request.user
-    mensaje=""
-    perros=Mascota.objects.all()
-    form=RegistrarMascotaForm(request.POST, request.FILES)
-    if form.is_valid():
-        data=form.cleaned_data
-        regDB=Mascota(imagen=data.get("imagen"),nombreMascota=data.get("nombreMascota"),razaMascota=data.get("razaMascota"),descripcion=data.get("descripcion"),estadoMascota=data.get("estadoMascota"))
-        regDB.save()
-        mensaje='Perro '+regDB.nombreMascota+' Registrado'
-    form = RegistrarMascotaForm()
-    return render(request, "registroPerro.html", {'form': form, 'perros':perros, 'actual':actual,'titulo':"Registro Perro",'mensaje':mensaje})
+    return render(request, "registroPerro.html", {'actual':actual,'titulo':"Registro Perro",})
 
 # Registro de Mascota (ADOPCION)
 # REGISTRO DE MASCOTA CON PERSONA

@@ -58,6 +58,8 @@
     <script type="text/javascript" src="{% static 'js/idbop.js' %}"></script> -->
     </body>
      <script>
+        // SCRIPTS ENCARGADOS DE HACER TODO
+        // LISTADO DE PERSONAS 
         $(document).ready(function(){
             $.ajax({url: "http://localhost:8000/Gestion/persona",  success: function(result){
                 $.each(result,function(i,items){
@@ -77,17 +79,76 @@
             }});
         })
 
+        // LISTADO DE PERROS
          $(document).ready(function(){
             $.ajax({url: "http://localhost:8000/Gestion/perro",  success: function(result){
                 $.each(result,function(i,items){
                     $("#listaPerros").append('<tr><td>'+ result[i].nombreMascota +'</td>'+
                                                 '<td>'+ result[i].razaMascota +'</td>'+
                                                 '<td>'+ result[i].descripcion +'</td>'+
-                                                '<td><img src="'+ result[i].imagen.substring(7) +'"width="25%" height="50%"></td>'+
+                                                '<td><img src="'+ result[i].imagen +'"width="25%" height="50%"></td>'+
                                                 '<td>'+ result[i].estadoMascota +'</td>'+
                                                 '<td><a href="http://localhost:8000/borrarPerro/'+ result[i].codigoMascota +'">Eliminar</a></td></tr>');
                });
             }});
         })
+
+        // REGISTRO DE PERSONAS
+        $("#registroPersona").submit(function(e) {
+                e.preventDefault(); // NO BORRA LOS DATOS SI EL USUARIO YA EXISTE 
+                var self = this;
+                $.ajax({
+                url:'http://localhost:8000/Gestion/persona',
+                type:'post',
+                data: { 'rut': $("#rut").val(),
+                        'clave':$("#clave").val(),
+                        'nombre':$("#nombre").val(),
+                        'apellido':$("#apellido").val(),
+                        'email':$("#email").val(),
+                        'fechaNacimiento':$("#fechaNacimiento").val(),
+                        'numeroFono':$("#numeroFono").val(),
+                        'region':$("#region").val(),
+                        'ciudad':$("#ciudad").val(),
+                        'tipo':$("#tipo").val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                async: false,
+                success: function () {
+                    self.submit();// GUARDA LOS DATOS DEL USUARIO
+                    alert("Usuario "+ nombre.val() +" Registrado Correctamente");
+                    window.location.replace("http://localhost:8000/registro/");
+                },
+                error: function () {
+                    alert("Este Usuario ya está Registrado");
+                }
+            });  
+         });
+
+
+        // REGISTRO DE PERRO
+        $("#registroPerro").submit(function(e) {
+                e.preventDefault(); // NO BORRA LOS DATOS SI EL USUARIO YA EXISTE 
+                var self = this;
+                $.ajax({
+                url:'http://localhost:8000/Gestion/perro',
+                type:'post',
+                data: { 'foto': $("#foto").val(),
+                        'nombre':$("#nombre").val(),
+                        'raza':$("#raza").val(),
+                        'descripcion':$("#descripcion").val(),
+                        'estado':$("#estado").val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                async: false,
+                success: function () {
+                    self.submit();// GUARDA LOS DATOS DEL USUARIO
+                    alert("Perro "+ nombre.val() +" Registrado Correctamente");
+                    window.location.replace("http://localhost:8000/registroPerro/");
+                },
+                error: function () {
+                    alert("Este Perro ya está Registrado");
+                }
+            });  
+         });
     </script>
 </html>

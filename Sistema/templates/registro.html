@@ -4,36 +4,39 @@
 {% block principal %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 {% if registro == 1 %}
-  <form class="formu" method="POST">
+  <form id="registroPersona" class="formu" method="POST" action="#">
       <h1>Registro Usuario</h1>
       {% csrf_token %}
       <table>
         <tr>
-            <td>Rut:</td><td><input type="text" id="rut"></td>
+            <td>Rut:</td><td><input type="text" id="rut" name="rut" required></td>
         </tr>
         <tr>
-            <td>Contraseña:</td><td><input type="password" id="contraseña"></td>
+            <td>Contraseña:</td><td><input type="password" id="clave" name="clave" required></td>
         </tr>
         <tr>
-            <td>Nombre:</td><td><input type="text" id="nombre"></td>
+            <td>Nombre:</td><td><input type="text" id="nombre" name="nombre" required></td>
         </tr>
         <tr>
-            <td>Apellido:</td><td><input type="text" id="apellido"></td>
+            <td>Apellido:</td><td><input type="text" id="apellido" name="apellido" required></td>
         </tr>
         <tr>
-            <td>E-Mail:</td><td><input type="email" id="email"></td>
+            <td>E-Mail:</td><td><input type="email" id="email" name="email" required></td>
         </tr>
         <tr>
-            <td>Fecha de Nacimiento:</td><td><input type="date" id="fechaNacimiento"></td>
+            <td>Fecha de Nacimiento:</td><td><input type="date" id="fechaNacimiento" name="fechaNacimiento" required></td>
         </tr>
         <tr>
-            <td>Nro Telefono:</td><td><input type="text" id="numeroFono"></td>
+            <td>Nro Telefono:</td><td><input type="text" id="numeroFono" name="numeroFono" required></td>
         </tr>
         <tr>
-            <td>Region</td><td><select id="region"><option>Selecione Región</option></select></td>
+            <td>Region</td><td><select id="region" name="region"><option>Selecione Región</option></select></td>
         </tr>
         <tr>
-            <td>Tipo de Casa</td><td><select id="tipo"><option>Selecione Tipo de Casa</option></select></td>
+            <td>Ciudad</td><td><select id="ciudad" name="ciudad"><option>Selecione Región</option></select></td>
+        </tr>
+        <tr>
+            <td>Tipo de Casa</td><td><select id="tipo" name="tipo"><option>Selecione Tipo de Casa</option></select></td>
         </tr>
       </table>
       <input type="submit" value="Registrar" class="btn-enviar">
@@ -45,9 +48,6 @@
       </table>
       <br>
 <!-- TERMINAR DESDE AQUI, FALTA QUE GUARDE AL USUARIO, ADEMAS DE HACER EL OTRO FORMULARIO -->
-      {% if mensaje != "" %}
-        <script languaje='javascript'>alert('{{mensaje}}')</script>
-      {% endif %}
 
   </form>
 {% else %}
@@ -90,9 +90,6 @@
         </tr>
       </table>
         <input type="submit" value="Registrar" class="btn-enviar">
-        {% if mensaje != "" %}
-          <script languaje='javascript'>alert('{{mensaje}}')</script>
-        {% endif %}
     </form>
   {% else %}
     <form class="formu">

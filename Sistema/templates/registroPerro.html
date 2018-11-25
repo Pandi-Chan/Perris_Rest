@@ -1,35 +1,31 @@
 {% extends 'maqueta.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block principal %}
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 {% if actual.is_staff %}
-  <form  role="form"  enctype="multipart/form-data"  method="POST" class="formu">
+  <form id="registroPerro" enctype="multipart/form-data"  method="POST" class="formu" action="#">
     <h1>Registro Perro</h1>
       {% csrf_token %}
-      {{ form.as_p }}
       <table>
         <tr>
-            <td>Foto:</td><td><input type="file" id="foto"></td>
+            <td>Foto:</td><td><input type="file" id="foto" name="foto"></td>
         </tr>
         <tr>
-            <td>Nombre:</td><td><input type="text" id="nombre"></td>
+            <td>Nombre:</td><td><input type="text" id="nombre" name="nombre"></td>
         </tr>
         <tr>
-            <td>Raza</td><td><select id="raza"><option>Selecione Raza</option></select></td>
+            <td>Raza</td><td><select id="raza" name="raza"><option>Selecione Raza</option></select></td>
         </tr>
         <tr>
-            <td>Descripcion:</td><td><textarea rows="2" cols="25" name="descripcion">Descripción del Perro...</textarea></td>
+            <td>Descripcion:</td><td><textarea rows="2" cols="25" id="descripcion" name="descripcion">Descripción del Perro...</textarea></td>
         </tr>
          <tr>
-            <td>Estado:</td><td><select id="tuser"><option>Selecione Estado del Perro</option>
+            <td>Estado:</td><td><select id="estado" name="estado"><option>Selecione Estado del Perro</option>
                                                             <option>Rescatado</option><option>Disponible</option><option>Adoptado</option></select></td>
         </tr>
       </table>
       <input type="submit" value="Enviar" class="btn-enviar">
-      {% if mensaje != "" %}
-        <script languaje='javascript'>alert('{{mensaje}}')</script>
-      {% endif %}
   </form>
 {% else %}
   <form class="formu">
