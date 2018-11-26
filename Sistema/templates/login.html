@@ -5,15 +5,11 @@
 <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 <form class="formu" method="POST">
     <h1>Login Usuario</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
     <table>
-        <tr>
-            <td>Rut:</td><td><input type="text" id="rut"></td>
-        </tr>
-        <tr>
-            <td>Contraseña:</td><td><input type="password" id="contraseña"></td>
-        </tr>
+    {% csrf_token %}
+    <tr>
+       <td>{{ form.as_p }}</td>
+    </tr>
     </table>
     <input type="submit" value="Ingresar" class="btn-enviar">
     <table id="otro">

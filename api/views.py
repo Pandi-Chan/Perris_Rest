@@ -21,7 +21,7 @@ class PersonaView(APIView):
 
     def post(self,request):
         rut = request.POST.get('rut')
-        clave = request.POST.get('clave')
+        contra = request.POST.get('contra')
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
         email = request.POST.get('email')
@@ -29,9 +29,15 @@ class PersonaView(APIView):
         fono = request.POST.get('numeroFono')
         region = request.POST.get('region')
         ciudad = request.POST.get('ciudad')
-        vivienda = request.POST.get('tipo')
-        usuario = User.objects.create_user(username = rut, password= clave, email=email)
-        persona=Persona(usuario=usuario,nombrePersona=nombre,apellidoPersona=apellido,fechaNacimiento=fechaNac,numeroFono=fono,regionPersona=region,ciudadPersona=ciudad,viviendaPersona=vivienda)
+        vivienda = request.POST.get('vivienda')
+        tipo = request.POST.get('tipo') 
+        usuario = User.objects.create_user(username=rut, password=contra, email=email)
+        if tipo == "Administrador":
+            usuario.is_staff = True
+        else:
+            usuario.is_staff = False
+        usuario.save()
+        persona=Persona(usuario=usuario,nombrePersona=nombre,apellidoPersona=apellido,fechaNacimiento=fechaNac,numeroFono=fono,regionPersona=region,ciudadPersona=ciudad,viviendaPersona=vivienda,tipoPersona=tipo)
         persona.save()
         return Response()
 

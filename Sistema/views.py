@@ -11,7 +11,7 @@ from django.contrib.auth.hashers import make_password
 # Importacion de Modelos
 from .models import Persona, Mascota
 # Importacion de Formularios
-from .forms import RegistrarAdminForm, LoginForm, RecuperacionForm, RestablecerForm
+from .forms import LoginForm, RecuperacionForm, RestablecerForm
 
 # Create your views here.
 #------------------------------------------ INDEX ------------------------------------------
@@ -20,7 +20,7 @@ def index(request):
     return HttpResponse(plantilla.render({'titulo':"Mis Perris"},request))
 
 #------------------------------------------ WORKER ------------------------------------------
-def base_layout(request):
+def base_layout(request,postid):
     # QUIERO QUE MAQUETA HTML CAMBIE DEPENDIENDO LA PAG QUE ESTÁ ACTUALMENTE
   template="maqueta.html"
   return render(request,template)
@@ -35,27 +35,8 @@ def registroPersona(request):
 @login_required(login_url='login')
 def registroAdmin(request):
     actual=request.user
-    mensaje=""
     registro=2 # Dependiendo este Numero es el Formulario que Mostrará
-    personas=Persona.objects.all()
-    form=RegistrarAdminForm(request.POST or None)
-    if form.is_valid():
-        data=form.cleaned_data
-        new=User.objects.create_user(data.get("rutPersona"),data.get("mailPersona"),data.get("passwordPersona"))
-        # Tipo es Tomado del Formulario (El ComboBox/ChoiceField)
-        tipo = data.get("tipoPersona") # Lo Guardo en una Variable para evitar posibles Problemas
-        if tipo == 'Usuario': # Verifica el Texto tomado del ComboBox/ChoiceField
-            new.is_staff=False # El is_staff es un campo que viene con la clase USER, es para diferenciar los tipos de usuario,
-            # SI es un usuario normal, queda en False
-        else:
-            # Pero si tiene como Tipo "Admnistrador", queda en True. Gracias a esto puedes hacer la diferencia en el HTML Maqueta
-            new.is_staff=True
-        new.save() # IMPORTANTE PONERLE SAVE Y RECORDAR QUE LOS USUARIOS CREADOS DESDE QUE EDITAS ESTO SON LOS QUE TENDRAN LOS PRIVILEGIOS DE Admin
-        regDB=Persona(usuario=new,nombrePersona=data.get("nombrePersona"),apellidoPersona=data.get("apellidoPersona"),fechaNacimiento=data.get("fechaNacimiento"),numeroFono=data.get("numeroFono"),regionPersona=data.get("regionPersona"),ciudadPersona=data.get("ciudadPersona"),viviendaPersona=data.get("viviendaPersona"),tipoPersona=data.get("tipoPersona"))
-        regDB.save()
-        mensaje='Usuario '+regDB.nombrePersona+' Registrado'
-    form=RegistrarAdminForm()
-    return render(request,"registro.html",{'form':form,'personas':personas,'actual':actual,'registro':registro,'titulo':"Registro",'mensaje':mensaje})
+    return render(request,"registro.html",{'actual':actual,'registro':registro,'titulo':"Registro",})
 
 # Registro de Perro NUEVO (RESCATADO O DISPONIBLE)
 @login_required(login_url='login')
@@ -83,9 +64,9 @@ def ingreso(request):
     form=LoginForm(request.POST or None)
     if form.is_valid():
         data=form.cleaned_data
-        user=authenticate(username=data.get("username"),password=data.get("password"))
-        if user is not None:
-            login(request,user)
+        usu=authenticate(username=data.get("username"),password=data.get("password"))
+        if usu is not None:
+            login(request,usu)
             return redirect('/index')
         else:
             mensaje='Datos Invalidos'

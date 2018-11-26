@@ -12,7 +12,7 @@
             <td>Rut:</td><td><input type="text" id="rut" name="rut" required></td>
         </tr>
         <tr>
-            <td>Contraseña:</td><td><input type="password" id="clave" name="clave" required></td>
+            <td>Contraseña:</td><td><input type="password" id="contra" name="contra" required></td>
         </tr>
         <tr>
             <td>Nombre:</td><td><input type="text" id="nombre" name="nombre" required></td>
@@ -33,10 +33,10 @@
             <td>Region</td><td><select id="region" name="region"><option>Selecione Región</option></select></td>
         </tr>
         <tr>
-            <td>Ciudad</td><td><select id="ciudad" name="ciudad"><option>Selecione Región</option></select></td>
+            <td>Ciudad</td><td><select id="ciudad" name="ciudad"><option>Selecione Ciudad</option></select></td>
         </tr>
         <tr>
-            <td>Tipo de Casa</td><td><select id="tipo" name="tipo"><option>Selecione Tipo de Casa</option></select></td>
+            <td>Tipo de Casa</td><td><select id="vivienda" name="vivienda"><option>Selecione Tipo de Casa</option></select></td>
         </tr>
       </table>
       <input type="submit" value="Registrar" class="btn-enviar">
@@ -47,21 +47,18 @@
         </tr>
       </table>
       <br>
-<!-- TERMINAR DESDE AQUI, FALTA QUE GUARDE AL USUARIO, ADEMAS DE HACER EL OTRO FORMULARIO -->
-
   </form>
 {% else %}
   {% if actual.is_staff %}
-    <form class="formu" method="POST">
+    <form id="registroPersona" class="formu" method="POST" action="#">
         <h1>Registro Usuario</h1>
         {% csrf_token %}
-        {{ form.as_p }}
         <table>
         <tr>
             <td>Rut:</td><td><input type="text" id="rut"></td>
         </tr>
         <tr>
-            <td>Contraseña:</td><td><input type="password" id="contraseña"></td>
+            <td>Contraseña:</td><td><input type="password" id="contra" name="contra"></td>
         </tr>
         <tr>
             <td>Nombre:</td><td><input type="text" id="nombre"></td>
@@ -82,11 +79,14 @@
             <td>Region</td><td><select id="region"><option>Selecione Región</option></select></td>
         </tr>
         <tr>
-            <td>Tipo de Casa</td><td><select id="tipo"><option>Selecione Tipo de Casa</option></select></td>
+            <td>Ciudad</td><td><select id="ciudad" name="ciudad"><option>Selecione Ciudad</option></select></td>
         </tr>
         <tr>
-            <td>Tipo de Usuario</td><td><select id="tuser"><option>Selecione Tipo de Usuario</option>
-                                                            <option>Usuario</option><option>Administrador</option></select></td>
+            <td>Tipo de Casa</td><td><select id="vivienda" name="vivienda"><option>Selecione Tipo de Casa</option></select></td>
+        </tr>
+        <tr>
+            <td>Tipo de Usuario</td><td><select id="tipo" name="tipo"><option>Selecione Tipo de Usuario</option>
+                                                            <option value="Usuario">Usuario</option><option value="Administrador">Administrador</option></select></td>
         </tr>
       </table>
         <input type="submit" value="Registrar" class="btn-enviar">
@@ -121,17 +121,17 @@
         $.each(regiones, function(key, value) {   
           $('#region')
              .append($("<option></option>")
-             .attr("value",key)
+             .attr("value",value)
              .text(value)); 
         });
 
         // TIPOS CASA
-        var tipos =["Casa con Patio Grande","Casa con Patio Pequeño","Casa sin Patio","Departamento"]
+        var tiposViv =["Casa con Patio Grande","Casa con Patio Pequeño","Casa sin Patio","Departamento"]
 
-        $.each(tipos, function(key, value) {   
-          $('#tipo')
+        $.each(tiposViv, function(key, value) {   
+          $('#vivienda')
              .append($("<option></option>")
-             .attr("value",key)
+             .attr("value",value)
              .text(value)); 
         });
       </script>

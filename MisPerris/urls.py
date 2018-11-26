@@ -27,6 +27,7 @@ urlpatterns = [
     # Path de WORKER
     path('',include('pwa.urls')),
 
+    # REDES SOCIALES
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),

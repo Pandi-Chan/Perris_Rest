@@ -101,7 +101,7 @@
                 url:'http://localhost:8000/Gestion/persona',
                 type:'post',
                 data: { 'rut': $("#rut").val(),
-                        'clave':$("#clave").val(),
+                        'contra':$("#contra").val(),
                         'nombre':$("#nombre").val(),
                         'apellido':$("#apellido").val(),
                         'email':$("#email").val(),
@@ -109,8 +109,10 @@
                         'numeroFono':$("#numeroFono").val(),
                         'region':$("#region").val(),
                         'ciudad':$("#ciudad").val(),
+                        'vivienda':$("#vivienda").val(),
                         'tipo':$("#tipo").val(),
                         csrfmiddlewaretoken: '{{ csrf_token }}'
+
                     },
                 async: false,
                 success: function () {
