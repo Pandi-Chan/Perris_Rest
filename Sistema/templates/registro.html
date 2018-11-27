@@ -40,6 +40,7 @@
         </tr>
       </table>
       <input type="submit" value="Registrar" class="btn-enviar">
+      <!-- ESPACIO PARA EL BOTON DE GITHUB -->
       <table id="otro">
         <tr><td><strong>-- O --</strong></td></tr>
         <tr>
@@ -98,27 +99,14 @@
   {% endif %}
 {% endif %}
 
-<!-- <table>
-{% if personas %}
-  <td>
-    <tr>Rut Nombre Persona</tr><br>
-  </td>
-  {% for p in personas %}
-    <tr>{{ p.user.username }} {{ p.nombrePersona }} {{ p.regionPersona }}</tr>
-    <br>
-  {% endfor %}
-{% else %}
-  SIN PERSONAS
-{% endif %}
-</table> -->
-
 <!-- SCRIPT PARA LLENAR LOS COMBO BOX CON LAS REGIONES Y TIPO DE CASA -->
       <script>
         // REGIONES
         var regiones=["Arica y Parinacota","Tarapacá","Antofagasta","Atacama","Coquimbo","Valparaiso","Metropolitana de Santiago",
           "Libertador General Bernardo O'Higgins","Maule","Biobío","La Araucanía","Los Ríos","Los Lagos",
           "Aisén del General Carlos Ibáñez del Campo","Magallanes y de la Antártica Chilena","Ñuble"]
-        $.each(regiones, function(key, value) {   
+        $.each(regiones, function(key, value) { 
+          // TOMA CADA UNA DE LAS REGIONES Y LAS AGREGA COMO OPTION AL COMBO BOX  
           $('#region')
              .append($("<option></option>")
              .attr("value",value)
@@ -129,6 +117,7 @@
         var tiposViv =["Casa con Patio Grande","Casa con Patio Pequeño","Casa sin Patio","Departamento"]
 
         $.each(tiposViv, function(key, value) {   
+          // TOMA CADA UNA DE LOS TIPOS DE CASA Y LAS AGREGA COMO OPTION AL COMBO BOX 
           $('#vivienda')
              .append($("<option></option>")
              .attr("value",value)

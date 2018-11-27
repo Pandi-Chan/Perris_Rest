@@ -63,6 +63,7 @@
         $(document).ready(function(){
             $.ajax({url: "http://localhost:8000/Gestion/persona",  success: function(result){
                 $.each(result,function(i,items){
+                    // Va en cada uno de los objetos y agrega los valores a la lista que se mostrará en el HTML
                     $("#listaPersonas").append('<tr><td>'+ result[i].usuario.username +'</td>'+
                                                 '<td>'+ result[i].nombrePersona +'</td>'+
                                                 '<td>'+ result[i].apellidoPersona +'</td>'+
@@ -83,12 +84,13 @@
          $(document).ready(function(){
             $.ajax({url: "http://localhost:8000/Gestion/perro",  success: function(result){
                 $.each(result,function(i,items){
+                    // Va en cada uno de los objetos y agrega los valores a la lista que se mostrará en el HTML
                     $("#listaPerros").append('<tr><td>'+ result[i].nombreMascota +'</td>'+
                                                 '<td>'+ result[i].razaMascota +'</td>'+
                                                 '<td>'+ result[i].descripcion +'</td>'+
                                                 '<td><img src="'+ result[i].imagen +'"width="25%" height="50%"></td>'+
                                                 '<td>'+ result[i].estadoMascota +'</td>'+
-                                                '<td><a href="http://localhost:8000/borrarPerro/'+ result[i].codigoMascota +'">Eliminar</a></td></tr>');
+                                                '<td><a href="http://localhost:8000/borrarPerro/'+ result[i].codigoMascota +'">Eliminar</a></td></tr>');// Agrega el Botón para Borrar al Perro
                });
             }});
         })
@@ -112,7 +114,7 @@
                         'vivienda':$("#vivienda").val(),
                         'tipo':$("#tipo").val(),
                         csrfmiddlewaretoken: '{{ csrf_token }}'
-
+                        // Rescata los datos del formulario
                     },
                 async: false,
                 success: function () {
@@ -129,7 +131,7 @@
 
         // REGISTRO DE PERRO
         $("#registroPerro").submit(function(e) {
-                e.preventDefault(); // NO BORRA LOS DATOS SI EL USUARIO YA EXISTE 
+                e.preventDefault(); // NO BORRA LOS DATOS SI EL PERRO YA EXISTE 
                 var self = this;
                 $.ajax({
                 url:'http://localhost:8000/Gestion/perro',
@@ -140,10 +142,11 @@
                         'descripcion':$("#descripcion").val(),
                         'estado':$("#estado").val(),
                         csrfmiddlewaretoken: '{{ csrf_token }}'
+                        // Rescata los datos del formulario
                     },
                 async: false,
                 success: function () {
-                    self.submit();// GUARDA LOS DATOS DEL USUARIO
+                    self.submit();// GUARDA LOS DATOS DEL PERRO
                     alert("Perro "+ nombre.val() +" Registrado Correctamente");
                     window.location.replace("http://localhost:8000/registroPerro/");
                 },

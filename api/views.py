@@ -31,6 +31,7 @@ class PersonaView(APIView):
         ciudad = request.POST.get('ciudad')
         vivienda = request.POST.get('vivienda')
         tipo = request.POST.get('tipo') 
+        # TOMA LOS DATOS DEL FOMRULARIO
         usuario = User.objects.create_user(username=rut, password=contra, email=email)
         if tipo == "Administrador":
             usuario.is_staff = True
@@ -39,6 +40,7 @@ class PersonaView(APIView):
         usuario.save()
         persona=Persona(usuario=usuario,nombrePersona=nombre,apellidoPersona=apellido,fechaNacimiento=fechaNac,numeroFono=fono,regionPersona=region,ciudadPersona=ciudad,viviendaPersona=vivienda,tipoPersona=tipo)
         persona.save()
+        # REGISTRA AL USUARIO
         return Response()
 
 
